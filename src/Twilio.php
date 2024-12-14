@@ -107,6 +107,10 @@ class Twilio
             ]);
         }
 
+        if ($this->config->isShortenUrlsEnabled()) {
+            $params['ShortenUrls'] = 'true';
+        }
+
         return $this->twilioService->messages->create($to, $params);
     }
 
