@@ -76,6 +76,10 @@ class Twilio
             $params['messagingServiceSid'] = $messagingServiceSid;
         }
 
+        if ($this->config->isShortenUrlsEnabled()) {
+            $params['ShortenUrls'] = 'true';
+        }
+
         if ($from = $this->getFrom($message)) {
             $params['from'] = $from;
         }
@@ -106,11 +110,7 @@ class Twilio
                 'contentVariables',
             ]);
         }
-
-        if ($this->config->isShortenUrlsEnabled()) {
-            $params['ShortenUrls'] = 'true';
-        }
-
+        
         return $this->twilioService->messages->create($to, $params);
     }
 
